@@ -1,6 +1,11 @@
 # OpenSSLHelper
 Some win batches to help with OpenSSL AES and RSA encryption
 ------------------------------------------------------------------
+Requirements:
+------------------------------------------------------------------
+Openssl util:
+https://wiki.openssl.org/index.php/Binaries
+------------------------------------------------------------------
 Quick start:
 ------------------------------------------------------------------
 1. Generate AES-256 and RSA 4096 keys with call_gen_key.bat
