@@ -12,7 +12,7 @@ Quick start:
 1. Generate AES-256 and RSA 4096 keys with call_gen_key.bat
 2. Copy generated keys from Out/ dir to Keys/ dir
 3. Run call_enc_sign.bat to encrypt file with AES-256-CBC and sign SHA256 of encrypted file with RSA 
-4. Enter file path for encrypt and sign (ex. In\test.txt or D:\OpenSSLHelper\In\test.txt)
+4. Enter file path for encrypt and sign (ex. test.txt or D:\OpenSSLHelper\In\test.txt)
 5. Enter out file extension (ex. enc)
 6. Get encrypted file and signature in Out/ dir (ex. test.enc and test.enc.sign)
 ------------------------------------------------------------------
