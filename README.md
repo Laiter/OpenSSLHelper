@@ -3,8 +3,8 @@ Some win batches to help with OpenSSL AES and RSA encryption
 ------------------------------------------------------------------
 Requirements:
 ------------------------------------------------------------------
-Openssl util:
-https://wiki.openssl.org/index.php/Binaries
+Openssl util https://wiki.openssl.org/index.php/Binaries
+Add directory with openssl.exe (ex. C:\openssl\bin or C:\openssl\apps) to Path variable in the Systems Variable
 
 ------------------------------------------------------------------
 Quick start:
