@@ -1,1 +1,0 @@
-type %1 | openssl enc -aes-256-cbc -K %AES_KEY% -iv %IV% %2
