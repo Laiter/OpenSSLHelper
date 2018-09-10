@@ -1,6 +1,7 @@
 @echo off
 setlocal EnableDelayedExpansion
 cd /d %~dp0
+call ..\Utils\settings.bat
 (>&2 echo "Enter project name:")
 set /p "project_name="
 :: check Master dir
@@ -28,7 +29,6 @@ if exist ..\Files\%project_name% (
 if not exist %project_name% mkdir %project_name%
 if not exist ..\Files\%project_name% mkdir ..\Files\%project_name%
 :: create keys
-call ..\Utils\settings.bat
 set /A gen_key_num=1
 set /A master_key_num=1
 (>&2 echo "Generating AES-256")
@@ -36,7 +36,7 @@ for %%f in (%gen_aes_keys_name%) do (
 	(>&2 echo "Work with %%f")  
 	call ..\Utils\AES\Gen_AES_256.bat %project_name%\%%f
 	set /A master_key_num=1 
-	
+	for %%k in (%master_aes_keys_name%) do (
 		if !gen_key_num! EQU !master_key_num! (>&2 echo "(%%f)%%k = CRYPTOGRAM_!gen_key_num!.BIN")
 		if !gen_key_num! EQU !master_key_num! echo 1|call ..\Utils\AES\call_enc.bat %master_keys_dir%\%%k.hex 00000000000000000000000000000000 %project_name%\%%f.bin > %project_name%\CRYPTOGRAM_!gen_key_num!.BIN
 		set /A master_key_num=master_key_num+1
