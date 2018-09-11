@@ -9,6 +9,7 @@ set /A new_extension_num=1
 set /A key_num=1
 set current_aes_key_name=key
 set current_rsa_key_name=key
+for %%I in (.) do set CurrDirName=%%~nxI
 for  %%e in (%new_file_extensions%) do (
 	set /A new_extension_num=1
 	for %%n in (%file_extensions%) do (
@@ -31,8 +32,8 @@ for  %%e in (%new_file_extensions%) do (
 				set /A key_num=key_num+1
 			)
 			for %%f in (*%%e) do (
-				(>&2 echo "call_verify_dec.bat %%f %%n !current_aes_key_name!.hex !current_rsa_key_name!_PUB.pem")
-				call ..\..\Utils\call_verify_dec.bat %%f %%n !current_aes_key_name!.hex !current_rsa_key_name!_PUB.pem
+				(>&2 echo "call_verify_dec.bat %%f %%n ..\..\Keys\%CurrDirName%\!current_aes_key_name!.hex ..\..\Keys\%CurrDirName%\!current_rsa_key_name!_PUB.pem Decrypt")
+				call ..\..\Utils\call_verify_dec.bat %%f %%n ..\..\Keys\%CurrDirName%\!current_aes_key_name!.hex ..\..\Keys\%CurrDirName%\!current_rsa_key_name!_PUB.pem Decrypt
 				if not !errorlevel!==0 (
 					(>&2 echo "call_verify_dec.bat error = !errorlevel!")
 				)

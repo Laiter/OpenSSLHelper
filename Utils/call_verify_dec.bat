@@ -5,12 +5,14 @@ setlocal EnableDelayedExpansion
 (>&2 echo "call_verify_dec:")
 set "InputFilePath=%1"
 set "NewFileExt=%2"
-set "AesKeyName=%3"
-set "RsaKeyName=%4"
+set "AesKeyPath=%3"
+set "RsaKeyPath=%4"
+set "OutDirPath=%5"
 (>&2 echo "InputFilePath = %1")
 (>&2 echo "NewFileExt = %2")
-(>&2 echo "AesKeyName = %3")
-(>&2 echo "RsaKeyName = %4")
+(>&2 echo "AesKeyPath = %3")
+(>&2 echo "RsaKeyPath = %4")
+(>&2 echo "OutDirPath = %5")
 call :NORMALIZEPATH %InputFilePath%
 call :DELIMPATH %RETVAL%
 set InputFilePath=%RETVAL%
@@ -19,17 +21,16 @@ if not exist %InputFilePath% (
 (>&2 echo "------------------------- call_verify_dec")
 EXIT /B 1
 )
-if not exist Decrypt mkdir Decrypt
-for %%I in (.) do set CurrDirName=%%~nxI
-(>&2 echo "..\..\Utils\RSA\call_dgst.bat ..\..\Keys\%CurrDirName%\%RsaKeyName% %InputFilePath%")
-echo 2|call ..\..\Utils\RSA\call_dgst.bat ..\..\Keys\%CurrDirName%\%RsaKeyName% %InputFilePath%
+if not exist %OutDirPath% mkdir %OutDirPath%
+(>&2 echo "%~dp0\RSA\call_dgst.bat %RsaKeyPath% %InputFilePath%")
+echo 2|call %~dp0\RSA\call_dgst.bat %RsaKeyPath% %InputFilePath%
 IF NOT !errorlevel!==0 (
 	(>&2 echo "stop, call_dgst.bat error = !errorlevel!")
 	(>&2 echo "------------------------- call_verify_dec")
 	EXIT /B 1
 )
-(>&2 echo "..\..\Utils\AES\call_enc.bat ..\..\Keys\%CurrDirName%\%AesKeyName% 00000000000000000000000000000000 %InputFilePath% > Decrypt\%DelimFileName%%NewFileExt%")
-echo 2|call ..\..\Utils\AES\call_enc.bat ..\..\Keys\%CurrDirName%\%AesKeyName% 00000000000000000000000000000000 %InputFilePath% > Decrypt\%DelimFileName%%NewFileExt%
+(>&2 echo "%~dp0\AES\call_enc.bat %AesKeyPath% 00000000000000000000000000000000 %InputFilePath% > %OutDirPath%\%DelimFileName%%NewFileExt%")
+echo 2|call %~dp0\AES\call_enc.bat %AesKeyPath% 00000000000000000000000000000000 %InputFilePath% > %OutDirPath%\%DelimFileName%%NewFileExt%
 IF NOT !errorlevel!==0 (
 	(>&2 echo "stop, call_enc.bat error = !errorlevel!")
 	(>&2 echo "------------------------- call_verify_dec")
