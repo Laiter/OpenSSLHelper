@@ -4,14 +4,29 @@ cd /d %~dp0
 (>&2 echo "-------------------------")
 (>&2 echo "gen_license:")
 call ..\Utils\settings.bat
-(>&2 echo "Enter project name:")
-set /p "project_name="
+if "!project_name!"=="" (
+	(>&2 echo "Enter project name:")
+	set /p "project_name="
+)
+(>&2 echo "project_name=!project_name!")
+if not exist !project_name! (
+	(>&2 echo "Project not found")
+	EXIT /B 1
+)
 for %%l in (%license_file_name%) do (
-	(>&2 echo "Enter license expiration date dd.MM.yyyy format (01.08.2018):")
+	(>&2 echo "Enter %%l expiration date dd.MM.yyyy format (01.08.2018):")
 	set /p exp_date=
 	call :checkDate !exp_date!
-	if not !errorlevel!==0 EXIT /B 1
-	echo %license_exp_date_template%=!exp_date! > %%l.txt
+	if not !errorlevel!==0 (
+		for %%c in (%license_file_name%) do (
+			if exist %%c%license_extensions% (
+				(>&2 echo "delete %%c%license_extensions%")
+				del %%c%license_extensions%
+			) 
+		)
+		EXIT /B 1
+	) 
+	echo %license_exp_date_template%=!exp_date! > %%l%license_extensions%
 )
 (>&2 echo "Encrypt license")
 set /A extension_num=1
@@ -43,8 +58,8 @@ for  %%e in (%license_extensions%) do (
 				set /A key_num=key_num+1
 			)
 			for %%f in (*%%e) do (
-				(>&2 echo "call_enc_sign.bat %%f %%n %master_keys_dir%\!current_aes_key_name!.hex %master_keys_dir%\!current_rsa_key_name!_PRIV.pem %project_name%")
-				call ..\Utils\call_enc_sign.bat %%f %%n %master_keys_dir%\!current_aes_key_name!.hex %master_keys_dir%\!current_rsa_key_name!_PRIV.pem %project_name%
+				(>&2 echo "call_enc_sign.bat %%f %%n %master_keys_dir%\!current_aes_key_name!.hex %master_keys_dir%\!current_rsa_key_name!_PRIV.pem !project_name!")
+				call ..\Utils\call_enc_sign.bat %%f %%n %master_keys_dir%\!current_aes_key_name!.hex %master_keys_dir%\!current_rsa_key_name!_PRIV.pem !project_name!
 				if not !errorlevel!==0 (
 					(>&2 echo "call_enc_sign.bat error = !errorlevel!")
 				)
