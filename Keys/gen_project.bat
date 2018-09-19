@@ -18,7 +18,7 @@ for %%k in (%master_aes_keys_name%) do (
 :: check Keys dir
 if exist !project_name! (
 	(>&2 echo "Directory Keys\!project_name! already exists")
-	EXIT /B 1
+	goto ZipDeploy
 )
 :: check Files dir
 if exist ..\Files\!project_name! (
@@ -72,4 +72,24 @@ if not !errorlevel!==0 (
 	(>&2 echo "get_license.bat error !errorlevel!")
 	EXIT /B !errorlevel!
 )
+:: ========== FUNCTIONS ==========
+:ZipDeploy
+cd %project_name%
+if not "%deploy_zip_password%"=="" (
+	(>&2 echo "Password exists %deploy_zip_password%")
+	set zip_password_option=-p%deploy_zip_password%
+)
+for %%d in (..\..\Utils\deploy\*.txt) do (
+	if exist %%~nd.zip (
+		(>&2 echo "delete %%~nd.zip")
+		del %%~nd.zip
+	) 
+	(>&2 echo "7z a -tzip %%~nd.zip @%%d %zip_password_option%")
+	7z a -tzip %%~nd.zip @%%d %zip_password_option%
+	if not !errorlevel!==0 (
+		(>&2 echo "7z error !errorlevel!")
+		EXIT /B !errorlevel!
+	)
+)
+cd ..
 EXIT /B

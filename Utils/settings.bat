@@ -1,3 +1,4 @@
+@echo off
 set file_extensions=.txt .bin
 set new_file_extensions=.txtnew .binnew
 set master_keys_dir=MASTER
@@ -10,6 +11,7 @@ set license_file_name=LICENSE_1 LICENSE_2
 set license_exp_date_template=date
 set license_extensions=.txt
 set new_license_extensions=.txtnew
+set deploy_zip_password=1234
 (>&2 echo "-------------------------")
 (>&2 echo "settings:")
 (>&2 echo "file_extensions = %file_extensions%")
