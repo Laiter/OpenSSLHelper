@@ -26,4 +26,5 @@ set deploy_zip_password=1234
 (>&2 echo "license_exp_date_template = %license_exp_date_template%")
 (>&2 echo "license_extensions = %license_extensions%")
 (>&2 echo "new_license_extensions = %new_license_extensions%")
+(>&2 echo "deploy_zip_password = %deploy_zip_password%")
 (>&2 echo "------------------------- settings")
