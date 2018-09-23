@@ -2,7 +2,7 @@
 :: 1 - AES Key HEX File Name
 :: 2 - Input File Name
 :: Example:
-:: call.bat MASTER_AES.hex 00000000000000000000000000000000 input.txt > input.txt.enc
+:: call_enc.bat MASTER_AES.hex 00000000000000000000000000000000 input.txt > input.txt.enc
 @echo off
 (>&2 echo "-------------------------")
 (>&2 echo "call_enc:")

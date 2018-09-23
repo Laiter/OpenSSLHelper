@@ -2,9 +2,9 @@
 :: 1 - RSA Key File Name
 :: 2 - Input File Name
 :: Example Sign:
-:: call.bat key.pem input.txt
+:: call_dgst.bat key.pem input.txt
 :: Example Verify:
-:: call.bat key_public.pem input.txt
+:: call_dgst.bat key_public.pem input.txt
 @echo off
 setlocal EnableDelayedExpansion
 (>&2 echo "-------------------------")
