@@ -24,9 +24,9 @@ Some win batches to help with OpenSSL AES and RSA encryption
 * * Enter license expiration date (ex. 01.01.2020)
 * (if needed)re-create license files with Keys\gen_license.bat
 * (if needed)re-create deploy zip with Keys\gen_project.bat
-* Copy files to "Files\project dir" for encrypt\decrypt (ex. Files\project1)
-* Use "Files\project dir\Encrypt.bat" to encrypt files in project dir (ex. Files\project1\Encrypt.bat)
-* Use "Files\project dir\Decrypt.bat" to decrypt files in project dir (ex. Files\project1\Decrypt.bat)
+* Copy files to Files\<project dir> for encrypt\decrypt (ex. Files\project1)
+* Use Files\<project dir>\Encrypt.bat to encrypt files in project dir (ex. Files\project1\Encrypt.bat)
+* Use Files\<project dir>\Decrypt.bat to decrypt files in project dir (ex. Files\project1\Decrypt.bat)
 
 ## License
 
